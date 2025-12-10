@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sapienti Sat — Интеллектуальный досуг для взрослых</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <!-- Шапка -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#home" class="logo">
+                    <span class="logo-icon">SS</span>
+                    <span class="logo-text">Sapienti Sat</span>
+                </a>
+                
+                <nav class="nav">
+                    <button class="nav-toggle" aria-label="Меню">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    
+                    <ul class="nav-menu">
+                        <li><a href="#home" class="nav-link">Главная</a></li>
+                        <li><a href="#about" class="nav-link">О нас</a></li>
+                        <li><a href="#courses" class="nav-link">Курсы</a></li>
+                        <li><a href="#lecturers" class="nav-link">Лекторы</a></li>
+                        <li><a href="#lectures" class="nav-link">Живые лекции</a></li>
+                        <li><a href="#contact" class="nav-link">Контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Главная секция -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Знания, ради которых хочется отложить все дела</h1>
+                <p class="hero-subtitle">Авторские курсы от лучших преподавателей Петербурга. Купи один раз — смотри всегда.</p>
+                <div class="hero-buttons">
+                    <a href="#courses" class="btn btn-primary">Смотреть курсы</a>
+                    <a href="#lectures" class="btn btn-secondary">Расписание в Петербурге</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- О проекте -->
+    <section id="about" class="section about">
+        <div class="container">
+            <h2 class="section-title">Наша философия</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="lead">Мы — не онлайн-школа. Мы — сообщество любознательных взрослых, для которых знание стало удовольствием.</p>
+                    <p>В формате «подписки на лектора» вы покупаете не абонемент, а цельный, завершенный продукт — курс. Никакой воды, только суть от экспертов с профессорским уровнем.</p>
+                    <p>Присоединяйтесь к нашему Telegram-сообществу единомышленников:</p>
+                    <a href="https://t.me/sapienti_sat_community" target="_blank" class="btn btn-telegram">
+                        <i class="fab fa-telegram"></i> Сообщество единомышленников
+                    </a>
+                </div>
+                <div class="about-features">
+                    <div class="feature">
+                        <div class="feature-icon">🎓</div>
+                        <h3>Эксперты вузов</h3>
+                        <p>Преподаватели ВШЭ, РАНХиГС, СПбГУ, ИТМО, Штиглица</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🕰️</div>
+                        <h3>Ваш темп</h3>
+                        <p>Купил курс — владеешь навсегда. Смотри когда удобно</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">💎</div>
+                        <h3>Без воды</h3>
+                        <p>Только концентрированные знания и авторский подход</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Курсы -->
+    <section id="courses" class="section courses">
+        <div class="container">
+            <h2 class="section-title">Авторские курсы</h2>
+            <p class="section-subtitle">Выберите настроение и погрузитесь в тему</p>
+            
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">Все курсы</button>
+                <button class="filter-btn" data-filter="culture">Чтобы блеснуть эрудицией</button>
+                <button class="filter-btn" data-filter="art">Чтобы понять искусство</button>
+                <button class="filter-btn" data-filter="science">Сложные темы просто</button>
+            </div>
+            
+            <div class="courses-grid">
+                <!-- Курс 1 -->
+                <div class="course-card" data-category="culture">
+                    <div class="course-image">
+                        <img src="images/course1.jpg" alt="Флоренция: как один город изменил мир">
+                    </div>
+                    <div class="course-content">
+                        <span class="course-category">Культурология</span>
+                        <h3 class="course-title">Флоренция: как один город изменил мир</h3>
+                        <p class="course-description">6 лекций о Ренессансе, которые перевернут ваше представление о европейской культуре.</p>
+                        <div class="course-meta">
+                            <div class="course-lecturer">
+                                <i class="fas fa-user"></i>
+                                <span>Анна Смирнова</span>
+                            </div>
+                            <div class="course-format">
+                                <i class="fas fa-play-circle"></i>
+                                <span>6 видео + PDF</span>
+                            </div>
+                        </div>
+                        <div class="course-price">4 900 ₽</div>
+                        <button class="btn btn-outline course-btn" data-course="1">Подробнее</button>
+                    </div>
+                </div>
+                
+                <!-- Курс 2 -->
+                <div class="course-card" data-category="science">
+                    <div class="course-image">
+                        <img src="images/course2.jpg" alt="Кот Шрёдингера для чайников с кофе">
+                    </div>
+                    <div class="course-content">
+                        <span class="course-category">Физика</span>
+                        <h3 class="course-title">Кот Шрёдингера для чайников с кофе</h3>
+                        <p class="course-description">Квантовая физика без формул. Понятно, метафорично, с юмором.</p>
+                        <div class="course-meta">
+                            <div class="course-lecturer">
+                                <i class="fas fa-user"></i>
+                                <span>Дмитрий Волков</span>
+                            </div>
+                            <div class="course-format">
+                                <i class="fas fa-play-circle"></i>
+                                <span>5 видео + конспект</span>
+                            </div>
+                        </div>
+                        <div class="course-price">3 900 ₽</div>
+                        <button class="btn btn-outline course-btn" data-course="2">Подробнее</button>
+                    </div>
+                </div>
+                
+                <!-- Курс 3 -->
+                <div class="course-card" data-category="art">
+                    <div class="course-image">
+                        <img src="images/course3.jpg" alt="От Малевича до Бэнкси">
+                    </div>
+                    <div class="course-content">
+                        <span class="course-category">Искусство</span>
+                        <h3 class="course-title">От Малевича до Бэнкси: искусство XX-XXI веков</h3>
+                        <p class="course-description">Как понимать современное искусство и не чувствовать себя обманутым.</p>
+                        <div class="course-meta">
+                            <div class="course-lecturer">
+                                <i class="fas fa-user"></i>
+                                <span>Мария Ковалева</span>
+                            </div>
+                            <div class="course-format">
+                                <i class="fas fa-play-circle"></i>
+                                <span>8 видео + галерея</span>
+                            </div>
+                        </div>
+                        <div class="course-price">5 900 ₽</div>
+                        <button class="btn btn-outline course-btn" data-course="3">Подробнее</button>
+                    </div>
+                </div>
+                
+                <!-- Курс 4 -->
+                <div class="course-card" data-category="science">
+                    <div class="course-image">
+                        <img src="images/course4.jpg" alt="Математика прекрасна">
+                    </div>
+                    <div class="course-content">
+                        <span class="course-category">Математика</span>
+                        <h3 class="course-title">Математика прекрасна: симметрия, числа, гармония</h3>
+                        <p class="course-description">Эстетика математики в архитектуре, музыке и природе.</p>
+                        <div class="course-meta">
+                            <div class="course-lecturer">
+                                <i class="fas fa-user"></i>
+                                <span>Иван Петров</span>
+                            </div>
+                            <div class="course-format">
+                                <i class="fas fa-play-circle"></i>
+                                <span>7 видео + задачи</span>
+                            </div>
+                        </div>
+                        <div class="course-price">4 500 ₽</div>
+                        <button class="btn btn-outline course-btn" data-course="4">Подробнее</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Лекторы -->
+    <section id="lecturers" class="section lecturers">
+        <div class="container">
+            <h2 class="section-title">Наши лекторы</h2>
+            <p class="section-subtitle">Профессора, которых слушают, открыв рот</p>
+            
+            <div class="lecturers-grid">
+                <!-- Лектор 1 -->
+                <div class="lecturer-card">
+                    <div class="lecturer-image">
+                        <img src="images/lecturer1.jpg" alt="Анна Смирнова">
+                        <div class="lecturer-badge">СПбГУ</div>
+                    </div>
+                    <div class="lecturer-info">
+                        <h3>Анна Смирнова</h3>
+                        <p class="lecturer-degree">Кандидат искусствоведения</p>
+                        <p class="lecturer-bio">Преподаватель кафедры истории искусств. Специалист по итальянскому Ренессансу.</p>
+                        <div class="lecturer-courses">
+                            <span>Курсы:</span>
+                            <a href="#courses">Флоренция</a>,
+                            <a href="#courses">Венеция</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Лектор 2 -->
+                <div class="lecturer-card">
+                    <div class="lecturer-image">
+                        <img src="images/lecturer2.jpg" alt="Дмитрий Волков">
+                        <div class="lecturer-badge">ИТМО</div>
+                    </div>
+                    <div class="lecturer-info">
+                        <h3>Дмитрий Волков</h3>
+                        <p class="lecturer-degree">Кандидат физико-математических наук</p>
+                        <p class="lecturer-bio">Научный сотрудник, популяризатор науки. Умеет объяснять сложное простыми словами.</p>
+                        <div class="lecturer-courses">
+                            <span>Курсы:</span>
+                            <a href="#courses">Квантовая физика</a>,
+                            <a href="#courses">Теория относительности</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Лектор 3 -->
+                <div class="lecturer-card">
+                    <div class="lecturer-image">
+                        <img src="images/lecturer3.jpg" alt="Мария Ковалева">
+                        <div class="lecturer-badge">Штиглица</div>
+                    </div>
+                    <div class="lecturer-info">
+                        <h3>Мария Ковалева</h3>
+                        <p class="lecturer-degree">Доцент, искусствовед</p>
+                        <p class="lecturer-bio">Куратор выставок современного искусства. Автор статей для Arzamas и других изданий.</p>
+                        <div class="lecturer-courses">
+                            <span>Курсы:</span>
+                            <a href="#courses">Современное искусство</a>,
+                            <a href="#courses">Русский авангард</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Лектор 4 -->
+                <div class="lecturer-card">
+                    <div class="lecturer-image">
+                        <img src="images/lecturer4.jpg" alt="Иван Петров">
+                        <div class="lecturer-badge">ВШЭ</div>
+                    </div>
+                    <div class="lecturer-info">
+                        <h3>Иван Петров</h3>
+                        <p class="lecturer-degree">Доктор физико-математических наук</p>
+                        <p class="lecturer-bio">Профессор, автор учебников. Ищет красоту в формулах и гармонию в числах.</p>
+                        <div class="lecturer-courses">
+                            <span>Курсы:</span>
+                            <a href="#courses">Математика прекрасна</a>,
+                            <a href="#courses">Теория хаоса</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Живые лекции -->
+    <section id="lectures" class="section lectures">
+        <div class="container">
+            <h2 class="section-title">Живые лекции в Петербурге</h2>
+            <p class="section-subtitle">Приходите на открытые встречи с лекторами</p>
+            
+            <div class="lectures-list">
+                <div class="lecture-item">
+                    <div class="lecture-date">
+                        <span class="date-day">25</span>
+                        <span class="date-month">Ноябрь</span>
+                    </div>
+                    <div class="lecture-info">
+                        <h3>Искусство смотреть архитектуру</h3>
+                        <p class="lecture-lecturer">Мария Ковалева</p>
+                        <p class="lecture-location"><i class="fas fa-map-marker-alt"></i> Конференц-зал "Набережная", 19:00</p>
+                    </div>
+                    <button class="btn btn-primary lecture-btn">Записаться</button>
+                </div>
+                
+                <div class="lecture-item">
+                    <div class="lecture-date">
+                        <span class="date-day">02</span>
+                        <span class="date-month">Декабрь</span>
+                    </div>
+                    <div class="lecture-info">
+                        <h3>Загадки квантового мира</h3>
+                        <p class="lecture-lecturer">Дмитрий Волков</p>
+                        <p class="lecture-location"><i class="fas fa-map-marker-alt"></i> Лофт "Книги и кофе", 18:30</p>
+                    </div>
+                    <button class="btn btn-primary lecture-btn">Записаться</button>
+                </div>
+                
+                <div class="lecture-item">
+                    <div class="lecture-date">
+                        <span class="date-day">10</span>
+                        <span class="date-month">Декабрь</span>
+                    </div>
+                    <div class="lecture-info">
+                        <h3>Почему мы до сих пор читаем Достоевского?</h3>
+                        <p class="lecture-lecturer">Анна Смирнова</p>
+                        <p class="lecture-location"><i class="fas fa-map-marker-alt"></i> Библиотека "Литературная", 19:00</p>
+                    </div>
+                    <button class="btn btn-primary lecture-btn">Записаться</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2 class="section-title">Свяжитесь с нами</h2>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Наши контакты</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <p>Email</p>
+                            <a href="mailto:hello@sapientisat.ru">hello@sapientisat.ru</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-telegram"></i>
+                        <div>
+                            <p>Telegram-канал</p>
+                            <a href="https://t.me/sapienti_sat" target="_blank">@sapienti_sat</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <p>Сообщество</p>
+                            <a href="https://t.me/sapienti_sat_community" target="_blank">Для единомышленников</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <p>Лекции проходят</p>
+                            <span>В разных залах Санкт-Петербурга</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Остались вопросы?</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" placeholder="Ваше имя" required>
+                            <div class="error-message" id="nameError"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" placeholder="Email" required>
+                            <div class="error-message" id="emailError"></div>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" placeholder="Ваш вопрос или комментарий" rows="5" required></textarea>
+                            <div class="error-message" id="messageError"></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Отправить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-icon">SS</span>
+                    <span class="logo-text">Sapienti Sat</span>
+                    <p>Знание как удовольствие</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#courses">Курсы</a></li>
+                        <li><a href="#lecturers">Лекторы</a></li>
+                        <li><a href="#lectures">Лекции</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-social">
+                    <h4>Соцсети</h4>
+                    <div class="social-icons">
+                        <a href="https://t.me/sapienti_sat" target="_blank" aria-label="Telegram">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="https://vk.com/sapientisat" target="_blank" aria-label="VK">
+                            <i class="fab fa-vk"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@sapientisat" target="_blank" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                    <p>Присоединяйтесь к сообществу в <a href="https://t.me/sapienti_sat_community" target="_blank">Telegram</a></p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Sapienti Sat. Интеллектуальный досуг для взрослых.</p>
+                <p>Все курсы защищены авторским правом.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Модальное окно -->
+    <div class="modal" id="courseModal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-body">
+                <h2 id="modalTitle">Название курса</h2>
+                <div class="modal-info">
+                    <p><strong>Лектор:</strong> <span id="modalLecturer"></span></p>
+                    <p><strong>Формат:</strong> <span id="modalFormat"></span></p>
+                    <p><strong>Цена:</strong> <span id="modalPrice"></span></p>
+                </div>
+                <p id="modalDescription">Описание курса</p>
+                <button class="btn btn-primary modal-buy">Купить курс</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
