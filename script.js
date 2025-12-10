@@ -49,29 +49,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // Фильтрация курсов
+// Фильтрация курсов
+document.addEventListener('DOMContentLoaded', function() {
     const filterButtons = document.querySelectorAll('.filter-btn');
     const courseCards = document.querySelectorAll('.course-card');
     
     filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Убираем активный класс у всех кнопок
+        button.addEventListener('click', function() {
+            // Удаляем активный класс у всех кнопок
             filterButtons.forEach(btn => btn.classList.remove('active'));
             // Добавляем активный класс текущей кнопке
-            button.classList.add('active');
+            this.classList.add('active');
             
-            const filter = button.getAttribute('data-filter');
+            const filterValue = this.getAttribute('data-filter');
             
+            // Показываем/скрываем карточки в зависимости от фильтра
             courseCards.forEach(card => {
-                if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                const categories = card.getAttribute('data-category').split(' ');
+                
+                if (filterValue === 'all' || categories.includes(filterValue)) {
                     card.style.display = 'block';
                     setTimeout(() => {
                         card.style.opacity = '1';
-                        card.style.transform = 'scale(1)';
-                    }, 10);
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
                 } else {
                     card.style.opacity = '0';
-                    card.style.transform = 'scale(0.8)';
+                    card.style.transform = 'translateY(20px)';
                     setTimeout(() => {
                         card.style.display = 'none';
                     }, 300);
@@ -79,6 +83,29 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
+    
+    // Мобильное меню
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    if (navToggle) {
+        navToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+    }
+    
+    // Закрытие мобильного меню при клике на ссылку
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (navMenu.classList.contains('active')) {
+                navToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+    });
+});
     
     // Модальное окно для курсов
     const courseButtons = document.querySelectorAll('.course-btn');
