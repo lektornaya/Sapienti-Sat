@@ -84,29 +84,34 @@ body {
   transform: translateY(-2px);
 }
 
-.btn-outline {
-  background: transparent;
-  color: var(--primary);
-  border: 2px solid var(--primary);
+/* Особые кнопки для героя */
+.hero-buttons .btn-primary {
+  background: var(--accent); /* Золотистый беж */
+  color: var(--primary); /* Черный текст */
+  border: 2px solid var(--accent);
 }
 
-.btn-outline:hover {
-  background: var(--primary);
+.hero-buttons .btn-primary:hover {
+  background: #9c8b5e; /* Темнее беж */
   color: white;
-}
-
-.btn-telegram {
-  background: #0088cc;
-  color: white;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 15px;
-}
-
-.btn-telegram:hover {
-  background: #0077b5;
+  border-color: #9c8b5e;
   transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.hero-buttons .btn-secondary {
+  background: rgba(255, 255, 255, 0.2); /* Полупрозрачный */
+  color: white;
+  border: 2px solid white;
+  backdrop-filter: blur(5px);
+}
+
+.hero-buttons .btn-secondary:hover {
+  background: white;
+  color: var(--primary);
+  border-color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255,255,255,0.2);
 }
 
 /* -------------------- ШАПКА -------------------- */
@@ -865,6 +870,26 @@ body {
 .footer {
   background: var(--primary);
   padding: 70px 0 40px;
+  color: white;
+}
+
+/* Специальные стили для Telegram ссылки */
+.footer a[href*="t.me"] {
+  color: var(--accent) !important;
+  transition: color 0.3s ease;
+}
+
+.footer a[href*="t.me"]:hover {
+  color: #fff !important;
+  text-decoration: underline;
+}
+
+/* Стили для ссылки в блоке "Сообщество" */
+.footer-social a[href*="t.me"] {
+  color: var(--accent);
+}
+
+.footer-social a[href*="t.me"]:hover {
   color: white;
 }
 
