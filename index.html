@@ -87,167 +87,109 @@
         </div>
     </section>
 
-    <!-- Курсы -->
-    <section id="courses" class="section courses">
-        <div class="container">
-            <h2 class="section-title">Авторские курсы</h2>
-            <p class="section-subtitle">Выберите настроение и погрузитесь в тему</p>
-            
-            <div class="filters">
-                <button class="filter-btn active" data-filter="all">Все курсы</button>
-                <button class="filter-btn" data-filter="culture">Чтобы блеснуть эрудицией</button>
-                <button class="filter-btn" data-filter="art">Чтобы понять искусство</button>
-                <button class="filter-btn" data-filter="science">Сложные темы просто</button>
+   <!-- Курсы -->
+<section id="courses" class="section courses">
+    <div class="container">
+        <h2 class="section-title">Авторские курсы</h2>
+        <p class="section-subtitle">Выберите настроение и погрузитесь в тему</p>
+        
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">Все курсы</button>
+            <button class="filter-btn" data-filter="culture">Чтобы блеснуть эрудицией</button>
+            <button class="filter-btn" data-filter="art">Чтобы понять искусство</button>
+            <button class="filter-btn" data-filter="science">Сложные темы просто</button>
+        </div>
+        
+        <div class="courses-grid">
+            <!-- Курс 1 - ВИТРАЖИ -->
+            <div class="course-card" data-category="art">
+                <!-- ... существующий код ... -->
             </div>
             
-            <div class="courses-grid">
-                <!-- Курс 1 - ВИТРАЖИ -->
-                <div class="course-card" data-category="art">
-                    <div class="course-image">
-                        <img src="images/vitraje.jpg" alt="Стекло и свет: магия средневековых витражей">
-                    </div>
-                    <div class="course-content">
-                        <span class="course-category">Искусство</span>
-                        <h3 class="course-title">Стекло и свет: магия средневековых витражей</h3>
-                        <p class="course-description">Как цветные окна соборов стали богословием в стекле. От Шартра до Кёльна.</p>
-                        <div class="course-meta">
-                            <div class="course-lecturer">
-                                <i class="fas fa-user"></i>
-                                <span>Таисия Воронова</span>
-                            </div>
-                            <div class="course-format">
-                                <i class="fas fa-play-circle"></i>
-                                <span>6 видео + PDF</span>
-                            </div>
-                        </div>
-                        <div class="course-price">4 900 ₽</div>
-                        <button class="btn btn-outline course-btn" data-course="1">Подробнее</button>
-                    </div>
+            <!-- Курс 2 - ФИЗИКА -->
+            <div class="course-card" data-category="science">
+                <!-- ... существующий код ... -->
+            </div>
+            
+            <!-- Курс 3 - УНОВИС (ДОБАВЛЕН КАТЕГОРИЯ "culture") -->
+            <div class="course-card" data-category="art culture">
+                <div class="course-image">
+                    <img src="images/unovis.jpg" alt="Утопия УНОВИСа: искусство для нового мира">
                 </div>
-                
-                <!-- Курс 2 - ФИЗИКА -->
-                <div class="course-card" data-category="science">
-                    <div class="course-image">
-                        <img src="images/quantum.png" alt="Кот Шрёдингера для чайников с кофе">
-                    </div>
-                    <div class="course-content">
-                        <span class="course-category">Физика</span>
-                        <h3 class="course-title">Кот Шрёдингера для чайников с кофе</h3>
-                        <p class="course-description">Квантовая физика без формул. Понятно, метафорично, с юмором.</p>
-                        <div class="course-meta">
-                            <div class="course-lecturer">
-                                <i class="fas fa-user"></i>
-                                <span>Марк Белов</span>
-                            </div>
-                            <div class="course-format">
-                                <i class="fas fa-play-circle"></i>
-                                <span>5 видео + конспект</span>
-                            </div>
+                <div class="course-content">
+                    <span class="course-category">Искусство</span>
+                    <h3 class="course-title">Утопия УНОВИСа: искусство для нового мира</h3>
+                    <p class="course-description">Почему самый радикальный художественный эксперимент длился так недолго. От Шагала до Малевича.</p>
+                    <div class="course-meta">
+                        <div class="course-lecturer">
+                            <i class="fas fa-user"></i>
+                            <span>Серафима Виленская</span>
                         </div>
-                        <div class="course-price">3 900 ₽</div>
-                        <button class="btn btn-outline course-btn" data-course="2">Подробнее</button>
+                        <div class="course-format">
+                            <i class="fas fa-play-circle"></i>
+                            <span>8 видео + галерея</span>
+                        </div>
                     </div>
+                    <div class="course-price">5 900 ₽</div>
+                    <button class="btn btn-outline course-btn" data-course="3">Подробнее</button>
                 </div>
-                
-                <!-- Курс 3 - УНОВИС -->
-                <div class="course-card" data-category="art">
-                    <div class="course-image">
-                        <img src="images/unovis.jpg" alt="Утопия УНОВИСа: искусство для нового мира">
-                    </div>
-                    <div class="course-content">
-                        <span class="course-category">Искусство</span>
-                        <h3 class="course-title">Утопия УНОВИСа: искусство для нового мира</h3>
-                        <p class="course-description">Почему самый радикальный художественный эксперимент длился так недолго. От Шагала до Малевича.</p>
-                        <div class="course-meta">
-                            <div class="course-lecturer">
-                                <i class="fas fa-user"></i>
-                                <span>Серафима Виленская</span>
-                            </div>
-                            <div class="course-format">
-                                <i class="fas fa-play-circle"></i>
-                                <span>8 видео + галерея</span>
-                            </div>
-                        </div>
-                        <div class="course-price">5 900 ₽</div>
-                        <button class="btn btn-outline course-btn" data-course="3">Подробнее</button>
-                    </div>
+            </div>
+            
+            <!-- Курс 4 - МАТЕМАТИКА (ДОБАВЛЕН КАТЕГОРИЯ "culture") -->
+            <div class="course-card" data-category="science culture">
+                <div class="course-image">
+                    <img src="images/geometry.jpg" alt="Геометрия живого: от раковины наутилуса до ДНК">
                 </div>
-                
-                <!-- Курс 4 - МАТЕМАТИКА -->
-                <div class="course-card" data-category="science">
-                    <div class="course-image">
-                        <img src="images/geometry.jpg" alt="Геометрия живого: от раковины наутилуса до ДНК">
-                    </div>
-                    <div class="course-content">
-                        <span class="course-category">Математика</span>
-                        <h3 class="course-title">Геометрия живого: от раковины наутилуса до ДНК</h3>
-                        <p class="course-description">Золотое сечение и фракталы в природе. Математика красоты вокруг нас.</p>
-                        <div class="course-meta">
-                            <div class="course-lecturer">
-                                <i class="fas fa-user"></i>
-                                <span>Всеволод Кашин</span>
-                            </div>
-                            <div class="course-format">
-                                <i class="fas fa-play-circle"></i>
-                                <span>7 видео + задачи</span>
-                            </div>
+                <div class="course-content">
+                    <span class="course-category">Математика</span>
+                    <h3 class="course-title">Геометрия живого: от раковины наутилуса до ДНК</h3>
+                    <p class="course-description">Золотое сечение и фракталы в природе. Математика красоты вокруг нас.</p>
+                    <div class="course-meta">
+                        <div class="course-lecturer">
+                            <i class="fas fa-user"></i>
+                            <span>Всеволод Кашин</span>
                         </div>
-                        <div class="course-price">4 500 ₽</div>
-                        <button class="btn btn-outline course-btn" data-course="4">Подробнее</button>
+                        <div class="course-format">
+                            <i class="fas fa-play-circle"></i>
+                            <span>7 видео + задачи</span>
+                        </div>
                     </div>
+                    <div class="course-price">4 500 ₽</div>
+                    <button class="btn btn-outline course-btn" data-course="4">Подробнее</button>
                 </div>
-                
-                <!-- Курс 5 - ВИТРАЖИ 2 -->
-                <div class="course-card" data-category="art">
-                    <div class="course-image">
-                        <img src="images/cathedrals.jpg" alt="Шартр, Кёльн, Париж: витражи как голос соборов">
-                    </div>
-                    <div class="course-content">
-                        <span class="course-category">Архитектура</span>
-                        <h3 class="course-title">Шартр, Кёльн, Париж: витражи как голос соборов</h3>
-                        <p class="course-description">Путешествие по великим готическим соборам Европы. Архитектура света.</p>
-                        <div class="course-meta">
-                            <div class="course-lecturer">
-                                <i class="fas fa-user"></i>
-                                <span>Таисия Воронова</span>
-                            </div>
-                            <div class="course-format">
-                                <i class="fas fa-play-circle"></i>
-                                <span>5 видео + карты</span>
-                            </div>
-                        </div>
-                        <div class="course-price">4 700 ₽</div>
-                        <button class="btn btn-outline course-btn" data-course="5">Подробнее</button>
-                    </div>
+            </div>
+            
+            <!-- Курс 5 - ВИТРАЖИ 2 -->
+            <div class="course-card" data-category="art">
+                <!-- ... существующий код ... -->
+            </div>
+            
+            <!-- Курс 6 - СОВРЕМЕННОЕ ИСКУССТВО (ДОБАВЛЕН КАТЕГОРИЯ "culture") -->
+            <div class="course-card" data-category="art culture">
+                <div class="course-image">
+                    <img src="images/contemporary.jpg" alt="От Малевича до Бэнкси">
                 </div>
-                
-                <!-- Курс 6 - СОВРЕМЕННОЕ ИСКУССТВО -->
-                <div class="course-card" data-category="art">
-                    <div class="course-image">
-                        <img src="images/contemporary.jpg" alt="От Малевича до Бэнкси">
-                    </div>
-                    <div class="course-content">
-                        <span class="course-category">Искусство</span>
-                        <h3 class="course-title">От Малевича до Бэнкси: искусство XX-XXI веков</h3>
-                        <p class="course-description">Как понимать современное искусство и не чувствовать себя обманутым.</p>
-                        <div class="course-meta">
-                            <div class="course-lecturer">
-                                <i class="fas fa-user"></i>
-                                <span>Серафима Виленская</span>
-                            </div>
-                            <div class="course-format">
-                                <i class="fas fa-play-circle"></i>
-                                <span>8 видео + галерея</span>
-                            </div>
+                <div class="course-content">
+                    <span class="course-category">Искусство</span>
+                    <h3 class="course-title">От Малевича до Бэнкси: искусство XX-XXI веков</h3>
+                    <p class="course-description">Как понимать современное искусство и не чувствовать себя обманутым.</p>
+                    <div class="course-meta">
+                        <div class="course-lecturer">
+                            <i class="fas fa-user"></i>
+                            <span>Серафима Виленская</span>
                         </div>
-                        <div class="course-price">5 900 ₽</div>
-                        <button class="btn btn-outline course-btn" data-course="6">Подробнее</button>
+                        <div class="course-format">
+                            <i class="fas fa-play-circle"></i>
+                            <span>8 видео + галерея</span>
+                        </div>
                     </div>
+                    <div class="course-price">5 900 ₽</div>
+                    <button class="btn btn-outline course-btn" data-course="6">Подробнее</button>
                 </div>
             </div>
         </div>
-    </section>
-
+    </div>
+</section>
     <!-- Подкасты -->
     <section id="podcasts" class="section podcasts">
         <div class="container">
