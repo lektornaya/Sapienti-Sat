@@ -476,4 +476,150 @@
             
             <div class="contact-content">
                 <div class="contact-info">
-                    <h3
+                    <h3>Наши контакты</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <p>Email</p>
+                            <a href="mailto:sapientisat@yandex.ru">sapientisat@yandex.ru</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-telegram"></i>
+                        <div>
+                            <p>Telegram-канал</p>
+                            <a href="https://t.me/sapienti_sat" target="_blank">@sapienti_sat</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <p>Сообщество</p>
+                            <a href="https://t.me/sapienti_sat_community" target="_blank">Для единомышленников</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <p>Лекции проходят</p>
+                            <span>В лекционных залах Санкт-Петербурга</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Остались вопросы?</h3>
+                    <form id="contactForm" class="needs-validation">
+                        <div class="form-group">
+                            <input type="text" id="name" placeholder="Ваше имя" required data-error="Пожалуйста, введите ваше имя">
+                            <div class="error-message" id="nameError"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" placeholder="Email" required data-error="Пожалуйста, введите корректный email">
+                            <div class="error-message" id="emailError"></div>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" placeholder="Ваш вопрос или комментарий" rows="5" required data-error="Пожалуйста, введите ваше сообщение"></textarea>
+                            <div class="error-message" id="messageError"></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Отправить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-icon">SS</span>
+                    <span class="logo-text">Sapienti Sat</span>
+                    <p>Знание как удовольствие</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#courses">Курсы</a></li>
+                        <li><a href="#podcasts">Подкасты</a></li>
+                        <li><a href="#lecturers">Лекторы</a></li>
+                        <li><a href="#lectures">Лекции</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-social">
+                    <h4>Соцсети</h4>
+                    <div class="social-icons">
+                        <a href="https://t.me/sapienti_sat" target="_blank" aria-label="Telegram">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="https://vk.com/sapientisat" target="_blank" aria-label="VK">
+                            <i class="fab fa-vk"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@sapientisat" target="_blank" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                    <p>Присоединяйтесь к сообществу в <a href="https://t.me/sapienti_sat_community" target="_blank">Telegram</a></p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Sapienti Sat. Интеллектуальный досуг для взрослых.</p>
+                <p>Все курсы защищены авторским правом.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Модальное окно -->
+    <div class="modal" id="courseModal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-body">
+                <h2 id="modalTitle">Название курса</h2>
+                <div class="modal-info">
+                    <p><strong>Лектор:</strong> <span id="modalLecturer"></span></p>
+                    <p><strong>Формат:</strong> <span id="modalFormat"></span></p>
+                    <p><strong>Цена:</strong> <span id="modalPrice"></span></p>
+                </div>
+                <p id="modalDescription">Описание курса</p>
+                <button class="btn btn-primary modal-buy">Купить курс</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно записи на лекцию -->
+    <div class="modal" id="lectureModal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-body">
+                <h2 id="lectureModalTitle">Запись на лекцию</h2>
+                <div class="modal-info">
+                    <p><strong>Лекция:</strong> <span id="lectureName"></span></p>
+                    <p><strong>Лектор:</strong> <span id="lectureLecturer"></span></p>
+                    <p><strong>Дата и время:</strong> <span id="lectureDateTime"></span></p>
+                    <p><strong>Место:</strong> <span id="lecturePlace"></span></p>
+                </div>
+                <form id="lectureForm" class="needs-validation">
+                    <div class="form-group">
+                        <input type="text" placeholder="Ваше имя" required data-error="Введите ваше имя">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Email" required data-error="Введите корректный email">
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="Телефон (необязательно)">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Записаться</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
