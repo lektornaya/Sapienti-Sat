@@ -70,52 +70,6 @@ function initMobileMenu() {
     }
 }
 
-// 3. Функция для аудиоплеера подкастов
-function initAudioPlayer() {
-    const playButtons = document.querySelectorAll('.play-btn');
-    const audioPlayer = document.getElementById('audioPlayer');
-    const mainAudio = document.getElementById('mainAudio');
-    const nowPlayingTitle = document.getElementById('nowPlayingTitle');
-    const currentTrack = document.getElementById('currentTrack');
-    
-    playButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const audioSrc = this.getAttribute('data-audio');
-            const podcastItem = this.closest('.podcast-item');
-            const podcastTitle = podcastItem.querySelector('h3').textContent;
-            
-            // Обновляем источник аудио
-            mainAudio.src = audioSrc;
-            
-            // Обновляем информацию о треке
-            currentTrack.textContent = podcastTitle;
-            
-            // Показываем аудиоплеер
-            audioPlayer.style.display = 'block';
-            
-            // Запускаем воспроизведение
-            mainAudio.play();
-            
-            // Обновляем состояние кнопки
-            playButtons.forEach(btn => {
-                btn.innerHTML = '<i class="fas fa-play"></i>';
-                btn.classList.remove('playing');
-            });
-            
-            this.innerHTML = '<i class="fas fa-pause"></i>';
-            this.classList.add('playing');
-        });
-    });
-    
-    // Обработка события окончания трека
-    mainAudio.addEventListener('ended', function() {
-        const currentButton = document.querySelector('.play-btn.playing');
-        if (currentButton) {
-            currentButton.innerHTML = '<i class="fas fa-play"></i>';
-            currentButton.classList.remove('playing');
-        }
-    });
-}
 
 // 4. Функция для модальных окон
 function initModals() {
