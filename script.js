@@ -1,414 +1,374 @@
-// script.js
-// Универсальный скрипт для лендинга (меню, плавный скролл, модалки, validation, gallery, темы)
-// Соответствует ТЗ: чистый JS, семантика, адаптивность, modal, smooth scroll, form validation.
-// Автор: адаптировано под Sapienti Sat — минималистичная версия
-
 document.addEventListener('DOMContentLoaded', () => {
-  /* =========================
-     УТИЛИТЫ
-     ========================= */
-  const $ = (sel, ctx = document) => ctx.querySelector(sel);
-  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
-
-  const hasClass = (el, cls) => el && el.classList.contains(cls);
-  const addClass = (el, cls) => el && el.classList.add(cls);
-  const removeClass = (el, cls) => el && el.classList.remove(cls);
-  const toggleClass = (el, cls) => el && el.classList.toggle(cls);
-
-  /* =========================
-     NAV / MOBILE MENU
-     ========================= */
-  (function navInit() {
-    const header = $('.header');
-    const navToggle = $('.nav-toggle');
-    const nav = $('.nav') || $('.nav-menu') || null; // разработка под разные HTML
-    if (!navToggle || !nav) return;
-
-    // ARIA state
-    navToggle.setAttribute('aria-expanded', 'false');
-
-    navToggle.addEventListener('click', () => {
-      const isOpen = nav.classList.toggle('active');
-      navToggle.classList.toggle('active');
-      navToggle.setAttribute('aria-expanded', String(isOpen));
-      // Блокировка прокрутки на мобильных
-      document.documentElement.style.overflow = isOpen ? 'hidden' : '';
-      document.body.style.overflow = isOpen ? 'hidden' : '';
+    // Мобильное меню
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    if (navToggle) {
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+        
+        // Закрытие меню при клике на ссылку
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+    }
+    
+    // Плавная прокрутка
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                const targetPosition = targetElement.offsetTop - headerHeight - 20;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
     });
-
-    // Закрыть меню при клике по ссылке-якорю
-    $$( 'a[href^="#"]', nav ).forEach(link => {
-      link.addEventListener('click', () => {
-        if (hasClass(nav, 'active')) {
-          removeClass(nav, 'active');
-          removeClass(navToggle, 'active');
-          navToggle.setAttribute('aria-expanded', 'false');
-          document.documentElement.style.overflow = '';
-          document.body.style.overflow = '';
-        }
-      });
-    });
-
-    // Эффект тени шапки при скролле
+    
+    // Тень при скролле
     window.addEventListener('scroll', () => {
-      if (!header) return;
-      if (window.scrollY > 8) header.classList.add('scrolled');
-      else header.classList.remove('scrolled');
-    }, { passive: true });
-  })();
-
-  /* =========================
-     SMOOTH SCROLL (с учётом фиксированной шапки)
-     ========================= */
-  (function smoothScrollInit() {
-    const header = $('.header');
-    const headerHeight = () => (header ? header.offsetHeight : 0);
-
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-      link.addEventListener('click', (e) => {
-        const href = link.getAttribute('href');
-        if (!href || href === '#') return;
-        const target = document.querySelector(href);
-        if (!target) return;
-
-        e.preventDefault();
-        const rect = target.getBoundingClientRect();
-        const targetY = window.pageYOffset + rect.top - headerHeight() - 12; // небольшой отступ
-        window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
-      });
-    });
-  })();
-
-  /* =========================
-     MODAL (универсальный)
-     - data-modal-open="[id]" для кнопки
-     - #id должен быть modal-контейнером
-     - внутри modal: .modal-close для кнопки закрытия
-     - реализован focus trap и закрытие на Esc/overlay
-     ========================= */
-  (function modalInit() {
-    const openButtons = document.querySelectorAll('[data-modal-open]');
-    if (!openButtons.length) return;
-
-    // focus trap helper
-    const focusableSelectors = [
-      'a[href]',
-      'button:not([disabled])',
-      'input:not([disabled])',
-      'textarea:not([disabled])',
-      'select:not([disabled])',
-      '[tabindex]:not([tabindex="-1"])'
-    ].join(',');
-
-    function trapFocus(modal) {
-      const focusables = Array.from(modal.querySelectorAll(focusableSelectors));
-      if (!focusables.length) return () => {};
-      let i = 0;
-      focusables[0].focus();
-
-      function handleKey(e) {
-        if (e.key === 'Tab') {
-          e.preventDefault();
-          if (e.shiftKey) i = (i - 1 + focusables.length) % focusables.length;
-          else i = (i + 1) % focusables.length;
-          focusables[i].focus();
+        const header = document.querySelector('.header');
+        if (window.scrollY > 10) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
         }
-      }
-      modal.addEventListener('keydown', handleKey);
-      return () => modal.removeEventListener('keydown', handleKey);
-    }
-
-    openButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const id = btn.getAttribute('data-modal-open');
-        const modal = document.getElementById(id);
-        if (!modal) return;
-        modal.style.display = 'flex';
-        document.documentElement.style.overflow = 'hidden';
-        document.body.style.overflow = 'hidden';
-        // focus trap
-        const release = trapFocus(modal);
-        // store for close
-        modal._releaseFocus = release;
-      });
     });
-
-    // Close handlers (by .modal-close, overlay click, Esc)
-    document.addEventListener('click', (e) => {
-      // close button
-      const close = e.target.closest('.modal-close');
-      if (close) {
-        const modal = close.closest('.modal');
-        closeModal(modal);
-      }
-      // overlay click (если кликнули на фон у modal)
-      const overlay = e.target.classList && e.target.classList.contains('modal');
-      if (overlay && e.target.matches('.modal')) {
-        closeModal(e.target);
-      }
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        // закрываем все видимые модалки
-        document.querySelectorAll('.modal').forEach(m => {
-          if (getComputedStyle(m).display !== 'none') closeModal(m);
+    
+    // Фильтрация курсов
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const courseCards = document.querySelectorAll('.course-card');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Убираем активный класс у всех кнопок
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Добавляем активный класс текущей кнопке
+            button.classList.add('active');
+            
+            const filter = button.getAttribute('data-filter');
+            
+            courseCards.forEach(card => {
+                if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                    card.style.display = 'block';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'scale(1)';
+                    }, 10);
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.8)';
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 300);
+                }
+            });
         });
-      }
     });
-
-    function closeModal(modal) {
-      if (!modal) return;
-      modal.style.display = 'none';
-      // restore scroll
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
-      // release focus trap
-      if (typeof modal._releaseFocus === 'function') modal._releaseFocus();
-    }
-  })();
-
-  /* =========================
-     FORM VALIDATION (семантическая, дружелюбная)
-     - форма должна иметь .needs-validation
-     - поля должны иметь required и data-error (опционально)
-     ========================= */
-  (function formValidationInit() {
-    const forms = document.querySelectorAll('form.needs-validation');
-    if (!forms.length) return;
-
-    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    forms.forEach(form => {
-      // create a lightweight function to show error near input
-      function showError(input, message) {
-        let err = input.nextElementSibling;
-        if (!err || !err.classList.contains('field-error')) {
-          err = document.createElement('div');
-          err.className = 'field-error';
-          input.parentNode.insertBefore(err, input.nextSibling);
+    
+    // Модальное окно для курсов
+    const courseButtons = document.querySelectorAll('.course-btn');
+    const courseModal = document.getElementById('courseModal');
+    const modalClose = document.querySelector('.modal-close');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalLecturer = document.getElementById('modalLecturer');
+    const modalFormat = document.getElementById('modalFormat');
+    const modalPrice = document.getElementById('modalPrice');
+    const modalDescription = document.getElementById('modalDescription');
+    
+    const coursesData = {
+        1: {
+            title: "Стекло и свет: магия средневековых витражей",
+            lecturer: "Анна Смирнова",
+            format: "6 видеоуроков + PDF-конспект + подборка материалов",
+            price: "4 900 ₽",
+            description: "Погрузитесь в мир средневековых витражей и узнайте, как цветные окна соборов стали \"библией для неграмотных\". Вы научитесь читать символику витражей Шартра, Кёльна и Парижа, поймете технологии создания и символику цветов."
+        },
+        2: {
+            title: "Кот Шрёдингера для чайников с кофе",
+            lecturer: "Дмитрий Волков",
+            format: "5 видеоуроков + PDF-конспект + список литературы",
+            price: "3 900 ₽",
+            description: "Квантовая физика кажется сложной только на первый взгляд. В этом курсе мы разберем основные концепции без сложных формул, через метафоры и аналогии. Вы поймете, что такое суперпозиция, квантовая запутанность и почему кот Шрёдингера одновременно и жив, и мертв."
+        },
+        3: {
+            title: "Утопия УНОВИСа: искусство для нового мира",
+            lecturer: "Мария Ковалева",
+            format: "8 видеоуроков + виртуальная галерея + глоссарий",
+            price: "5 900 ₽",
+            description: "Курс посвящен самому радикальному художественному эксперименту XX века. Вы узнаете, как Витебск на 3 года стал столицей мирового авангарда, почему УНОВИС просуществовал так недолго, и как идеи Малевича, Лисицкого и Поповой изменили искусство."
+        },
+        4: {
+            title: "Геометрия живого: от раковины наутилуса до ДНК",
+            lecturer: "Иван Петров",
+            format: "7 видеоуроков + набор задач для размышления",
+            price: "4 500 ₽",
+            description: "Математика — это язык природы. В этом курсе мы исследуем математические закономерности в живых организмах: золотое сечение в раковинах, фракталы в деревьях, симметрию в кристаллах и спирали в ДНК. Вы начнете видеть математическую гармонию вокруг себя."
+        },
+        5: {
+            title: "Шартр, Кёльн, Париж: витражи как голос соборов",
+            lecturer: "Анна Смирнова",
+            format: "5 видеоуроков + интерактивные карты + глоссарий",
+            price: "4 700 ₽",
+            description: "Виртуальное путешествие по великим готическим соборам Европы. Вы узнаете, как архитектура света создавала особую атмосферу, какие истории рассказывают витражи и как \"читать\" архитектурные символы."
+        },
+        6: {
+            title: "От Малевича до Бэнкси: искусство XX-XXI веков",
+            lecturer: "Мария Ковалева",
+            format: "8 видеоуроков + виртуальная галерея + список для чтения",
+            price: "5 900 ₽",
+            description: "Как понимать современное искусство и не чувствовать себя обманутым. От русского авангарда через поп-арт и концептуализм к стрит-арту и digital-искусству. Вы получите инструменты для анализа и начнете видеть смысл там, где раньше видели только эпатаж."
         }
-        err.textContent = message;
-        input.classList.add('invalid');
-      }
-
-      function clearError(input) {
-        const err = input.nextElementSibling;
-        if (err && err.classList.contains('field-error')) err.textContent = '';
-        input.classList.remove('invalid');
-      }
-
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        let valid = true;
-
-        const requiredFields = form.querySelectorAll('[required]');
-        requiredFields.forEach(field => {
-          clearError(field);
-          const val = String(field.value || '').trim();
-
-          if (!val) {
-            const msg = field.getAttribute('data-error') || 'Заполните поле';
-            showError(field, msg);
-            valid = false;
-            return;
-          }
-
-          // email validation
-          if (field.type === 'email' && !emailRe.test(val)) {
-            showError(field, field.getAttribute('data-error') || 'Введите корректный email');
-            valid = false;
-            return;
-          }
-
-          // optional: min length data-min
-          const min = field.getAttribute('data-min');
-          if (min && val.length < Number(min)) {
-            showError(field, field.getAttribute('data-error') || `Минимум ${min} символов`);
-            valid = false;
-            return;
-          }
+    };
+    
+    // Открытие модального окна с информацией о курсе
+    courseButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const courseId = button.getAttribute('data-course');
+            const course = coursesData[courseId];
+            
+            if (course) {
+                modalTitle.textContent = course.title;
+                modalLecturer.textContent = course.lecturer;
+                modalFormat.textContent = course.format;
+                modalPrice.textContent = course.price;
+                modalDescription.textContent = course.description;
+                
+                courseModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
         });
-
-        if (!valid) {
-          // прокрутка к первой ошибке
-          const firstInvalid = form.querySelector('.invalid');
-          if (firstInvalid) firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          return;
-        }
-
-        // если всё ок — можно отправить через fetch (пример, заглушка)
-        const submitUrl = form.getAttribute('action') || '#';
-        const method = (form.getAttribute('method') || 'POST').toUpperCase();
-
-        // Соберём данные
-        const data = new FormData(form);
-
-        // UX: показать сообщение отправки
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const prevText = submitBtn ? submitBtn.textContent : null;
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.textContent = 'Отправка...';
-        }
-
-        // Здесь — заглушка: симулируем сетевой запрос
-        setTimeout(() => {
-          // успешная отправка
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.textContent = prevText;
-          }
-
-          // показываем дружелюбное сообщение. В реале — показывать исходя из ответа сервера.
-          const successMsg = document.createElement('div');
-          successMsg.className = 'form-success';
-          successMsg.textContent = form.getAttribute('data-success') || 'Спасибо! Мы получили ваше сообщение.';
-          form.appendChild(successMsg);
-
-          form.reset();
-
-          // скрыть сообщение через 5 секунд
-          setTimeout(() => {
-            successMsg.remove();
-          }, 5000);
-        }, 900);
-
-        // Для реального проекта:
-        // fetch(submitUrl, { method, body: data }).then(...).catch(...)
-      });
     });
-  })();
-
-  /* =========================
-     GALLERY LIGHTBOX
-     - картинки: <a href="large.jpg" data-lightbox="gallery-name"><img ...></a>
-     - поддержка стрелок (prev/next) и Esc
-     ========================= */
-  (function galleryInit() {
-    const galleryLinks = document.querySelectorAll('a[data-lightbox]');
-    if (!galleryLinks.length) return;
-
-    // Соберём группы по имени
-    const groups = {};
-    galleryLinks.forEach(a => {
-      const name = a.getAttribute('data-lightbox') || '__default';
-      groups[name] = groups[name] || [];
-      groups[name].push(a);
+    
+    // Закрытие модального окна
+    modalClose.addEventListener('click', () => {
+        courseModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
     });
-
-    // Создаём modal для галереи (один общий)
-    const galleryModal = document.createElement('div');
-    galleryModal.className = 'modal gallery-modal';
-    galleryModal.style.display = 'none';
-    galleryModal.style.alignItems = 'center';
-    galleryModal.style.justifyContent = 'center';
-    galleryModal.style.position = 'fixed';
-    galleryModal.style.inset = '0';
-    galleryModal.style.background = 'rgba(0,0,0,0.75)';
-    galleryModal.style.zIndex = '3000';
-    galleryModal.innerHTML = `
-      <div class="gallery-inner" style="max-width:90%; max-height:90%; position:relative;">
-        <button class="gallery-close" aria-label="Закрыть" style="position:absolute;right:-10px;top:-10px;">×</button>
-        <img src="" alt="" style="max-width:100%; max-height:100%; display:block; margin:0 auto; border-radius:6px;" />
-        <div class="gallery-caption" style="text-align:center; margin-top:12px; color:#fff; opacity:.9;"></div>
-      </div>
-    `;
-    document.body.appendChild(galleryModal);
-
-    const imgEl = galleryModal.querySelector('img');
-    const captionEl = galleryModal.querySelector('.gallery-caption');
-    let currentGroup = [];
-    let currentIndex = 0;
-
-    function openGallery(groupName, index) {
-      currentGroup = groups[groupName];
-      currentIndex = index;
-      const a = currentGroup[currentIndex];
-      const src = a.getAttribute('href') || a.querySelector('img')?.src;
-      const alt = a.querySelector('img')?.alt || a.getAttribute('data-caption') || '';
-      imgEl.src = src;
-      imgEl.alt = alt;
-      captionEl.textContent = alt;
-      galleryModal.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
+    
+    // Закрытие модального окна при клике вне его
+    window.addEventListener('click', (e) => {
+        if (e.target === courseModal) {
+            courseModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
+    
+    // Кнопка "Купить курс" в модальном окне
+    const modalBuyButton = document.querySelector('.modal-buy');
+    if (modalBuyButton) {
+        modalBuyButton.addEventListener('click', () => {
+            alert('Спасибо за интерес к курсу! В ближайшее время с вами свяжется наш менеджер для оформления заказа.');
+            courseModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
     }
-
-    function closeGallery() {
-      galleryModal.style.display = 'none';
-      imgEl.src = '';
-      captionEl.textContent = '';
-      document.body.style.overflow = '';
-    }
-
-    function showNext(offset) {
-      if (!currentGroup.length) return;
-      currentIndex = (currentIndex + offset + currentGroup.length) % currentGroup.length;
-      const a = currentGroup[currentIndex];
-      imgEl.src = a.getAttribute('href') || a.querySelector('img')?.src;
-      captionEl.textContent = a.querySelector('img')?.alt || a.getAttribute('data-caption') || '';
-    }
-
-    // Навешиваем события на ссылки
-    galleryLinks.forEach(a => {
-      a.addEventListener('click', (e) => {
+    
+    // Аудиоплеер для подкастов
+    const playButtons = document.querySelectorAll('.play-btn');
+    const audioPlayer = document.getElementById('audioPlayer');
+    const mainAudio = document.getElementById('mainAudio');
+    const currentTrack = document.getElementById('currentTrack');
+    const nowPlayingTitle = document.getElementById('nowPlayingTitle');
+    
+    const podcasts = {
+        'podcast1.mp3': 'Зачем взрослым учиться?',
+        'podcast2.mp3': 'Соборы как космос',
+        'podcast3.mp3': 'Квантовая поэзия',
+        'podcast4.mp3': 'Черный квадрат и белые пятна'
+    };
+    
+    playButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const audioFile = button.getAttribute('data-audio');
+            const podcastTitle = button.closest('.podcast-item').querySelector('h3').textContent;
+            
+            mainAudio.src = `audio/${audioFile}`;
+            currentTrack.textContent = podcastTitle;
+            audioPlayer.style.display = 'block';
+            
+            // Воспроизведение
+            mainAudio.play();
+            
+            // Прокрутка к плееру
+            audioPlayer.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+    
+    // Модальное окно для записи на лекции
+    const lectureButtons = document.querySelectorAll('.lecture-btn');
+    const lectureModal = document.getElementById('lectureModal');
+    const lectureClose = lectureModal.querySelector('.modal-close');
+    const lectureModalTitle = document.getElementById('lectureModalTitle');
+    const lectureName = document.getElementById('lectureName');
+    const lectureLecturer = document.getElementById('lectureLecturer');
+    const lectureDateTime = document.getElementById('lectureDateTime');
+    const lecturePlace = document.getElementById('lecturePlace');
+    const lectureForm = document.getElementById('lectureForm');
+    
+    const lecturesData = {
+        1: {
+            name: "Искусство смотреть архитектуру",
+            lecturer: "Мария Ковалева",
+            datetime: "25 ноября, 19:00",
+            place: "Конференц-зал 'Набережная'"
+        },
+        2: {
+            name: "Загадки квантового мира",
+            lecturer: "Дмитрий Волков",
+            datetime: "2 декабря, 18:30",
+            place: "Лофт 'Книги и кофе'"
+        },
+        3: {
+            name: "Почему мы до сих пор читаем Достоевского?",
+            lecturer: "Анна Смирнова",
+            datetime: "10 декабря, 19:00",
+            place: "Библиотека 'Литературная'"
+        }
+    };
+    
+    lectureButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const lectureId = button.getAttribute('data-lecture');
+            const lecture = lecturesData[lectureId];
+            
+            if (lecture) {
+                lectureName.textContent = lecture.name;
+                lectureLecturer.textContent = lecture.lecturer;
+                lectureDateTime.textContent = lecture.datetime;
+                lecturePlace.textContent = lecture.place;
+                
+                lectureModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    });
+    
+    // Закрытие модального окна лекций
+    lectureClose.addEventListener('click', () => {
+        lectureModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    });
+    
+    // Закрытие при клике вне модального окна
+    window.addEventListener('click', (e) => {
+        if (e.target === lectureModal) {
+            lectureModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
+    
+    // Отправка формы записи на лекцию
+    lectureForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const name = a.getAttribute('data-lightbox') || '__default';
-        const group = groups[name];
-        const idx = group.indexOf(a);
-        openGallery(name, idx);
-      });
+        
+        // Простая валидация
+        const inputs = lectureForm.querySelectorAll('input[required]');
+        let isValid = true;
+        
+        inputs.forEach(input => {
+            if (!input.value.trim()) {
+                isValid = false;
+                input.style.borderColor = '#e53e3e';
+            } else {
+                input.style.borderColor = '#ddd';
+            }
+        });
+        
+        if (isValid) {
+            // Здесь должна быть отправка на сервер
+            alert('Спасибо за запись! Мы отправили вам подтверждение на email.');
+            lectureForm.reset();
+            lectureModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        } else {
+            alert('Пожалуйста, заполните обязательные поля');
+        }
     });
-
-    // Закрытие и клавиши
-    galleryModal.addEventListener('click', (e) => {
-      if (e.target.classList.contains('gallery-close') || e.target === galleryModal) closeGallery();
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (getComputedStyle(galleryModal).display === 'flex') {
-        if (e.key === 'Escape') closeGallery();
-        if (e.key === 'ArrowRight') showNext(1);
-        if (e.key === 'ArrowLeft') showNext(-1);
-      }
-    });
-
-  })();
-
-  /* =========================
-     THEME SWITCHER (необязательно, легкая изюминка)
-     - элементы с data-theme-btn="[theme]" переключают тему
-     - запись в localStorage 'site-theme'
-     - themes: 'default' | 'warm' | 'dark'
-     ========================= */
-  (function themeSwitcher() {
-    const available = ['default', 'warm', 'dark'];
-    const root = document.documentElement;
-    const saved = localStorage.getItem('site-theme') || 'default';
-    setTheme(saved);
-
-    document.addEventListener('click', (e) => {
-      const btn = e.target.closest('[data-theme-btn]');
-      if (!btn) return;
-      const theme = btn.getAttribute('data-theme-btn');
-      if (!available.includes(theme)) return;
-      setTheme(theme);
-      localStorage.setItem('site-theme', theme);
-    });
-
-    function setTheme(name) {
-      // CSS-переменные могут быть определены в файле стилей под [data-theme="..."]
-      root.setAttribute('data-theme', name);
+    
+    // Валидация формы обратной связи
+    const contactForm = document.getElementById('contactForm');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const messageInput = document.getElementById('message');
+    const nameError = document.getElementById('nameError');
+    const emailError = document.getElementById('emailError');
+    const messageError = document.getElementById('messageError');
+    
+    // Функция валидации email
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
     }
-  })();
-
-  /* =========================
-     Accessibility helpers: add role where logical (progressive enhancement)
-     ========================= */
-  (function a11yEnhance() {
-    // Ensure nav has role
-    const nav = $('.nav') || $('.nav-menu');
-    if (nav && !nav.hasAttribute('role')) nav.setAttribute('role', 'navigation');
-  })();
-
-}); // DOMContentLoaded end
+    
+    // Обработка отправки формы
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let isValid = true;
+        
+        // Валидация имени
+        if (nameInput.value.trim() === '') {
+            nameError.textContent = 'Пожалуйста, введите ваше имя';
+            nameInput.style.borderColor = '#e53e3e';
+            isValid = false;
+        } else {
+            nameError.textContent = '';
+            nameInput.style.borderColor = '#ddd';
+        }
+        
+        // Валидация email
+        if (emailInput.value.trim() === '') {
+            emailError.textContent = 'Пожалуйста, введите ваш email';
+            emailInput.style.borderColor = '#e53e3e';
+            isValid = false;
+        } else if (!validateEmail(emailInput.value.trim())) {
+            emailError.textContent = 'Пожалуйста, введите корректный email';
+            emailInput.style.borderColor = '#e53e3e';
+            isValid = false;
+        } else {
+            emailError.textContent = '';
+            emailInput.style.borderColor = '#ddd';
+        }
+        
+        // Валидация сообщения
+        if (messageInput.value.trim() === '') {
+            messageError.textContent = 'Пожалуйста, введите ваше сообщение';
+            messageInput.style.borderColor = '#e53e3e';
+            isValid = false;
+        } else {
+            messageError.textContent = '';
+            messageInput.style.borderColor = '#ddd';
+        }
+        
+        // Если форма валидна, отправляем (симуляция)
+        if (isValid) {
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Отправка...';
+            
+            // Симуляция отправки
+            setTimeout(() => {
+                alert('Спасибо за ваше сообщение! Мы свяжемся с вами в ближайшее время.');
+                contactForm.reset();
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }, 1000);
+        }
+    });
+});
